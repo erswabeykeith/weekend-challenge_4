@@ -36,8 +36,8 @@ function appendTasks(tasks) {
     var task = tasks[i];
     $el.data('id', task.id);
     // console.log('append task:', task);
-    var string = '<p>Task: '+ tasks[i].taskname+' Completed: ' + tasks[i].completionstatus+'</p>'
-    // console.log('append: ', string);
+    var string = '<p name="task" value"'+ task.taskname +'">Task: '+ tasks[i].taskname+' Completed: ' + tasks[i].completionstatus+'</p>'
+    console.log('append: ', string);
     //Adding a task button
     $el.append(string);
     //Completing a task button
@@ -76,19 +76,20 @@ function completeTask() {
   event.preventDefault()
   var id = $(this).parent().data('id');
   console.log('id: ', id);
-
-  // make task object
-  var task = {};
-  var fields = $(this).parent().children().serializeArray();
-  fields.forEach(function(field) {
-    task[field.name] = field.value;
-  });
-  console.log(task);
+  //
+  // // make task object
+  // var task = {};
+  // var fields = $(this).parent().children()//.serializeArray();
+  // fields.forEach(function(field) {
+  //   console.log(fields);
+  //   task[field.name] = field.value;
+  // });
+  // console.log(task);
 
   $.ajax({
     type: 'PUT',
     url: '/tasks/' + id,
-    data: task,
+    // data: task,
     success: function(result) {
       console.log('updated!!!!');
       getTasks();

@@ -7,7 +7,7 @@ $(document).ready(function() {
   // complete a task (listeners)
   $('#container').on('click','.complete', completeTask);
   // delete a task (listeners)
-  // $('.delete').on('click', deleteTask);
+  $('#container').on('click','.delete', deleteTask);
 
 
 
@@ -96,6 +96,22 @@ function completeTask() {
     },
     error: function(result) {
       console.log('could not update task!');
+    }
+  });
+}
+
+function deleteTask() {
+  var id = $(this).parent().data('id');
+  console.log(id);
+
+  $.ajax({
+    type: 'DELETE',
+    url: '/tasks/' + id,
+    success: function(result) {
+      getTasks();
+    },
+    error: function(result) {
+      console.log('could not delete task.');
     }
   });
 }
